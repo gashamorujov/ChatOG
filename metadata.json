@@ -1,0 +1,8 @@
+{
+  "name": "ORUJOV Chat",
+  "description": "ORUJOV Chat application with real-time messaging, audio/video calls, stories, and notifications",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

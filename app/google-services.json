@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "889924282994",
+    "project_id": "examresult-21cf3",
+    "storage_bucket": "examresult-21cf3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889924282994:android:9d3a305af145228cce70eb",
+        "android_client_info": {
+          "package_name": "com.chatog.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjhP79Vq25uYwMPzBOs-MUv92-MF5D-ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
