@@ -1,36 +1,41 @@
 workflows:
   android-apk:
     name: ChatOG Android APK
-    instance_type: linux_x2
+    instance_type: mac_mini_m2
     max_build_duration: 60
     environment:
       java: 17
       vars:
         GRADLE_VERSION: "8.11.1"
     scripts:
-      - name: Create signing keystore (debug key, installable APK)
+      - name: Create signing keystore and helper files
         script: |
+          set -e
           if [ ! -f debug.keystore ]; then
             keytool -genkeypair -v -keystore debug.keystore -storepass android \
               -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 \
               -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
           fi
           touch app/proguard-rules.pro
-      - name: Install Gradle $GRADLE_VERSION
+      - name: Install Gradle
         script: |
+          set -e
+          mkdir -p "$HOME/gradle-dist"
           curl -fsSL -o /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip"
-          unzip -q /tmp/gradle.zip -d /opt
-          echo "GRADLE_BIN=/opt/gradle-${GRADLE_VERSION}/bin/gradle" >> $CM_ENV
+          unzip -q -o /tmp/gradle.zip -d "$HOME/gradle-dist"
+          "$HOME/gradle-dist/gradle-${GRADLE_VERSION}/bin/gradle" --version
+          echo "GRADLE_BIN=$HOME/gradle-dist/gradle-${GRADLE_VERSION}/bin/gradle" >> $CM_ENV
       - name: Write local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
       - name: Unit tests
         script: |
-          $GRADLE_BIN --no-daemon :app:testDebugUnitTest
+          "$GRADLE_BIN" --no-daemon :app:testDebugUnitTest
         ignore_failure: true
       - name: Build release APK
         script: |
-          $GRADLE_BIN --no-daemon :app:assembleRelease
+          set -e
+          "$GRADLE_BIN" --no-daemon :app:assembleRelease
     artifacts:
       - app/build/outputs/apk/release/*.apk
       - app/build/reports/tests/**/*
