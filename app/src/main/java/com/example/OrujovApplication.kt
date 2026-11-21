@@ -7,7 +7,6 @@ class OrujovApplication : Application() {
         super.onCreate()
         NotificationHelper.createNotificationChannels(this)
         if (NotificationStore.hasSession(this)) {
-            ForegroundSyncService.start(this)
             SilentSseManager.ensureRunning(this)
             NotificationSyncJobService.scheduleAll(this)
             NotificationAlarmReceiver.scheduleNext(this)

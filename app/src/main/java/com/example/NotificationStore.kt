@@ -30,6 +30,10 @@ object NotificationStore {
     @Volatile
     var isAppForeground: Boolean = false
 
+    /** Set when MainActivity is started from a notification tap; consumed after first page load. */
+    @Volatile
+    var launchedFromNotification: Boolean = false
+
     @Volatile
     var activeChatUid: String = ""
 

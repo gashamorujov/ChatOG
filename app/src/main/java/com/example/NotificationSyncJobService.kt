@@ -20,7 +20,6 @@ class NotificationSyncJobService : JobService() {
             try {
                 NotificationHelper.createNotificationChannels(applicationContext)
                 FirebaseNotifFetcher.fetchOnceSync(applicationContext)
-                ForegroundSyncService.start(applicationContext)
                 SilentSseManager.ensureRunning(applicationContext)
             } catch (e: Exception) {
                 Log.w(TAG, "Job sync error: ${e.message}")

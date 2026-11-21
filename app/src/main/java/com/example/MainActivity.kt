@@ -91,7 +91,6 @@ class MainActivity : ComponentActivity() {
 
         // Ensure silent background notification sync runs if user already has a saved session
         if (NotificationStore.hasSession(applicationContext)) {
-            ForegroundSyncService.start(applicationContext)
             SilentSseManager.ensureRunning(applicationContext)
             NotificationSyncJobService.scheduleAll(applicationContext)
             NotificationAlarmReceiver.scheduleNext(applicationContext)
@@ -135,29 +134,9 @@ class MainActivity : ComponentActivity() {
         super.onResume()
         NotificationStore.isAppForeground = true
         if (NotificationStore.hasSession(applicationContext)) {
-            ForegroundSyncService.start(applicationContext)
             SilentSseManager.ensureRunning(applicationContext)
             NotificationSyncJobService.scheduleAll(applicationContext)
             NotificationAlarmReceiver.scheduleNext(applicationContext)
-            requestIgnoreBatteryOptimizationsOnce()
-        }
-    }
-
-    private fun requestIgnoreBatteryOptimizationsOnce() {
-        try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
-            val prefs = getSharedPreferences("orujov_ui_prefs", Context.MODE_PRIVATE)
-            if (prefs.getBoolean("battery_opt_asked", false)) return
-            val pm = getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
-            if (pm.isIgnoringBatteryOptimizations(packageName)) return
-            prefs.edit().putBoolean("battery_opt_asked", true).apply()
-            startActivity(
-                Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
-                    data = Uri.parse("package:$packageName")
-                }
-            )
-        } catch (e: Exception) {
-            Log.w("MainActivity", "Battery optimisation request failed: ${e.message}")
         }
     }
 
@@ -180,6 +159,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun extractNotificationIntent(intent: Intent?) {
+        // Launched by tapping a push notification -> web UI must skip the intro animation.
+        val fromNotification = intent?.hasExtra("notification_type") == true
+        NotificationStore.launchedFromNotification = fromNotification
         val senderUid = intent?.getStringExtra("sender_uid") ?: ""
         val senderName = intent?.getStringExtra("sender_name") ?: ""
         if (senderUid.isNotBlank()) {
@@ -192,6 +174,10 @@ class AndroidBridge(
     private val context: Context,
     private val webViewProvider: () -> WebView?
 ) {
+    /** True when the app was opened by tapping a notification (JS skips the splash animation). */
+    @JavascriptInterface
+    fun isNotificationLaunch(): Boolean = NotificationStore.launchedFromNotification
+
     @JavascriptInterface
     fun getFcmToken(): String {
         val token = MyFirebaseMessagingService.getSavedToken(context)
@@ -218,7 +204,6 @@ class AndroidBridge(
             databaseUrl = databaseUrl,
             loginTimestampMs = loginTimestampMs
         )
-        ForegroundSyncService.start(context)
         SilentSseManager.ensureRunning(context)
         NotificationSyncJobService.scheduleAll(context)
         NotificationAlarmReceiver.scheduleNext(context)
@@ -229,7 +214,6 @@ class AndroidBridge(
         Log.d("AndroidBridge", "clearAuthSession")
         NotificationStore.clearSession(context)
         SilentSseManager.stop()
-        ForegroundSyncService.stop(context)
         NotificationSyncJobService.cancel(context)
         NotificationAlarmReceiver.cancel(context)
         BadgeHelper.clearBadge(context)

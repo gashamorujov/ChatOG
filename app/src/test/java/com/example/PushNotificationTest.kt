@@ -311,21 +311,4 @@ class PushNotificationTest {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         assertNotNull(shadowOf(alarmManager).peekNextScheduledAlarm())
     }
-
-    @Test
-    fun `foreground sync service starts only when a session exists`() {
-        val app = shadowOf(context as android.app.Application)
-        NotificationStore.clearSession(context)
-        ForegroundSyncService.start(context)
-        assertEquals(null, app.nextStartedService)
-
-        NotificationStore.saveSession(
-            context = context, uid = "u", idToken = "t", refreshToken = "r",
-            apiKey = "k", databaseUrl = baseUrl, loginTimestampMs = 1_000_000L
-        )
-        ForegroundSyncService.start(context)
-        val started = app.nextStartedService
-        assertNotNull(started)
-        assertEquals(ForegroundSyncService::class.java.name, started.component?.className)
-    }
 }

@@ -38,6 +38,7 @@ object NotificationHelper {
             // Remove legacy foreground-service channel if an older build created it
             try {
                 notificationManager.deleteNotificationChannel(LEGACY_BG_SERVICE_CHANNEL_ID)
+                notificationManager.deleteNotificationChannel("background_sync_min")
             } catch (_: Exception) {
             }
 

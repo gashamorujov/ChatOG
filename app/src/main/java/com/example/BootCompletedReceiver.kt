@@ -17,7 +17,6 @@ class BootCompletedReceiver : BroadcastReceiver() {
                 NotificationHelper.createNotificationChannels(context)
                 NotificationSyncJobService.scheduleAll(context)
                 NotificationAlarmReceiver.scheduleNext(context)
-                ForegroundSyncService.start(context)
                 SilentSseManager.ensureRunning(context)
             }
         }

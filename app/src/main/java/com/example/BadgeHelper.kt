@@ -123,13 +123,7 @@ object BadgeHelper {
         if (count == 0) {
             try {
                 val nm = appCtx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    nm.activeNotifications.forEach {
-                        if (it.id != ForegroundSyncService.NOTIFICATION_ID) nm.cancel(it.tag, it.id)
-                    }
-                } else {
-                    nm.cancelAll()
-                }
+                nm.cancelAll()
             } catch (e: Exception) {
                 Log.w(TAG, "Failed clearing notifications: ${e.message}")
             }

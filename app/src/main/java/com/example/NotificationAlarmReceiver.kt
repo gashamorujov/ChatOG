@@ -29,7 +29,6 @@ class NotificationAlarmReceiver : BroadcastReceiver() {
             try {
                 NotificationHelper.createNotificationChannels(appCtx)
                 FirebaseNotifFetcher.fetchOnceSync(appCtx)
-                ForegroundSyncService.start(appCtx)
                 SilentSseManager.ensureRunning(appCtx)
                 NotificationSyncJobService.scheduleAll(appCtx)
             } catch (e: Exception) {
