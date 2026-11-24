@@ -3705,45 +3705,100 @@
         .sp-bar span { display:block; height:100%; width:0; border-radius:4px; background:linear-gradient(90deg,#00FF88,#00D4FF); box-shadow:0 0 12px #00FF88; animation:spBar 2.9s .2s cubic-bezier(.4,.1,.2,1) forwards; }
         @keyframes spBar { to { width:100%; } }
         @media (prefers-reduced-motion: reduce) { #splash-screen * { animation-duration:.01s !important; animation-delay:0s !important; } }
+
+        /* ===================== v1.3 ===================== */
+        /* Splash */
+        #splash-screen { background:#FF0000 !important; animation:none !important; }
+        #splash-screen .sp2-word { font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif; font-weight:800; font-size:2.6rem; letter-spacing:-.5px; color:#fff; animation:sp2in .28s ease-out both; }
+        #splash-screen .sp2-word span { color:#fff; opacity:.92; }
+        @keyframes sp2in { from { opacity:0; transform:scale(.92); } to { opacity:1; transform:scale(1); } }
+
+        /* Login */
+        .auth-screen { background:#0B0F1E !important; }
+        .auth-card { background:transparent !important; border:none !important; box-shadow:none !important; padding:0 !important; max-width:360px !important; animation:authFadeIn .25s ease-out both !important; }
+        .auth-header { margin-bottom:44px !important; gap:0 !important; }
+        .auth-brand-name { font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif !important; margin:0 !important; font-size:2.9rem !important; font-weight:800 !important; letter-spacing:-1px !important; color:#fff !important; background:none !important; -webkit-text-fill-color:#fff !important; text-shadow:none !important; text-transform:none !important; }
+        .auth-brand-name span { color:#FF2A2A; -webkit-text-fill-color:#FF2A2A; }
+        .auth-form { gap:14px !important; }
+        .auth-field { background:#141A2E !important; border:1.5px solid #222B47 !important; border-radius:16px !important; height:56px !important; box-shadow:none !important; }
+        .auth-field:focus-within { border-color:#FF2A2A !important; box-shadow:0 0 0 3px rgba(255,42,42,.14) !important; }
+        .auth-field-icon, .auth-field:focus-within .auth-field-icon { color:#6F7B99 !important; }
+        .auth-field:focus-within .auth-field-icon { color:#FF2A2A !important; }
+        .auth-input { background:transparent !important; border:none !important; color:#fff !important; font-size:1rem !important; box-shadow:none !important; }
+        .auth-input::placeholder { color:#6F7B99 !important; }
+        .auth-actions { gap:12px !important; margin-top:8px !important; }
+        .auth-btn { height:54px !important; border-radius:16px !important; font-size:1rem !important; font-weight:700 !important; letter-spacing:.2px !important; text-transform:none !important; margin:0 !important; }
+        .auth-btn-primary { background:#FF2A2A !important; color:#fff !important; border:none !important; box-shadow:0 8px 22px rgba(255,42,42,.28) !important; }
+        .auth-btn-secondary { background:transparent !important; color:#C9D1E6 !important; border:1.5px solid #2A3350 !important; box-shadow:none !important; }
+        .auth-btn-secondary:hover, .auth-btn-secondary:active { background:#141A2E !important; }
+
+        /* Side drawer */
+        #side-menu { top:0 !important; left:0 !important; width:100% !important; max-width:none !important; height:100% !important; padding:0 !important; background:transparent !important; backdrop-filter:none !important; border:none !important; box-shadow:none !important; transform:none !important; overflow:hidden !important; visibility:hidden; pointer-events:none; transition:visibility 0s linear .26s !important; }
+        #side-menu.open { visibility:visible; pointer-events:auto; transition-delay:0s !important; }
+        #side-menu .sm-scrim { position:absolute; inset:0; background:rgba(0,0,0,.6); opacity:0; transition:opacity .26s ease; }
+        #side-menu.open .sm-scrim { opacity:1; }
+        #side-menu .sm-panel { position:absolute; top:0; bottom:0; left:0; width:80%; max-width:304px; background:#0F1426; border-right:1px solid #1E2745; display:flex; flex-direction:column; transform:translateX(-102%); transition:transform .26s cubic-bezier(.2,.8,.2,1); padding-top:env(safe-area-inset-top); box-shadow:12px 0 40px rgba(0,0,0,.5); }
+        #side-menu.open .sm-panel { transform:none; }
+        #side-menu button { width:auto; margin:0; padding:0; letter-spacing:0; text-transform:none; background:none; box-shadow:none; }
+        #side-menu .sm-close { position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background:#1A2138; border:none; color:#B9C3DB; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+        #side-menu .sm-close:active { background:#242D4B; }
+        .sm-head { padding:44px 20px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; border-bottom:1px solid #1E2745; background:linear-gradient(180deg,#1A0F1A 0%, #0F1426 100%); }
+        .sm-avatar-wrap { position:relative; width:84px; height:84px; }
+        .sm-avatar { width:84px; height:84px; border-radius:50%; object-fit:cover; background:#1A2138; border:3px solid #FF2A2A; display:block; font-size:0; }
+        .sm-camera { position:absolute; right:-2px; bottom:-2px; width:28px; height:28px; border-radius:50%; background:#FF2A2A; border:2px solid #0F1426; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+        .sm-info { width:100%; display:flex; flex-direction:column; align-items:center; gap:6px; min-width:0; }
+        .sm-name-row { display:flex; align-items:center; justify-content:center; gap:6px; max-width:100%; }
+        .sm-name { margin:0; font-size:1.15rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:190px; }
+        #side-menu .sm-pencil { width:26px; height:26px; border-radius:50%; background:#1A2138; border:none; color:#9AA6C4; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .sm-bio { margin:0; font-size:.84rem; color:#8F9BB8; line-height:1.35; max-width:100%; word-break:break-word; }
+        .sm-bio.hidden { display:none !important; }
+        .sm-id { display:inline-flex; align-items:center; gap:6px; margin-top:4px; padding:5px 6px 5px 12px; border-radius:999px; background:#1A2138; border:1px solid #232D4D; font-size:.8rem; }
+        .sm-id.copied { border-color:#3DDC84; }
+        .sm-id-tag { color:#6F7B99; font-weight:700; letter-spacing:.5px; }
+        .sm-id-code { color:#fff; font-family:ui-monospace,Menlo,monospace; font-weight:600; max-width:130px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        #side-menu .sm-copy { width:26px; height:26px; border-radius:50%; background:#232D4D; border:none; color:#B9C3DB; display:flex; align-items:center; justify-content:center; }
+        .sm-list { padding:12px 12px 0; display:flex; flex-direction:column; gap:4px; flex:1; overflow-y:auto; }
+        .sm-foot { padding:8px 12px calc(14px + env(safe-area-inset-bottom)); border-top:1px solid #1E2745; }
+        #side-menu .sm-item { width:100%; display:flex; align-items:center; gap:14px; height:52px; padding:0 12px; border:none; border-radius:14px; background:transparent; color:#E6EBF8; font-size:.98rem; font-weight:600; cursor:pointer; text-align:left; }
+        #side-menu .sm-item:active { background:#1A2138; }
+        #side-menu .sm-ico { width:36px; height:36px; border-radius:11px; background:#1A2138; display:flex; align-items:center; justify-content:center; color:#C9D1E6; flex-shrink:0; }
+        #side-menu .sm-txt { flex:1; }
+        #side-menu .sm-chev { color:#5A6684; flex-shrink:0; }
+        #side-menu #btn-logout.sm-danger { height:52px; background:transparent !important; border:none !important; color:#FF5A5F !important; margin:0 !important; justify-content:flex-start; }
+        #side-menu .sm-danger .sm-ico { background:rgba(255,90,95,.12); color:#FF5A5F; }
+        .sm-ver { text-align:center; font-size:.72rem; color:#4B5775; padding-top:6px; }
+
+        /* File cards */
+        .message.file-msg { min-width:230px; max-width:300px; }
+        .file-container.fk-card { background:rgba(0,0,0,.22); border-radius:14px; padding:10px; gap:12px; }
+        .fk-badge { position:relative; width:46px; height:54px; flex-shrink:0; color:var(--fk,#5B6B86); display:flex; align-items:center; justify-content:center; }
+        .fk-badge .fk-page { position:absolute; inset:0; width:100%; height:100%; }
+        .fk-badge .fk-label { position:relative; z-index:1; margin-top:12px; font-size:.58rem; font-weight:800; color:#fff; letter-spacing:.3px; }
+        .file-download-btn { width:42px; height:42px; background:rgba(255,255,255,.14) !important; border:none !important; color:#fff; padding:0; margin:0; flex-shrink:0; }
+        .message.me .file-download-btn { background:rgba(255,255,255,.2) !important; }
+        .media-content { position:relative; }
+        .media-download-btn { position:absolute; top:8px; right:8px; width:36px; height:36px; padding:0; margin:0; border-radius:50%; border:none; background:rgba(0,0,0,.55); color:#fff; display:flex; align-items:center; justify-content:center; z-index:3; cursor:pointer; backdrop-filter:none; }
+        .media-download-btn svg { width:18px; height:18px; }
+        .media-download-btn:active { transform:scale(.92); }
+
+        /* Ticks: 1 = sent, 2 = read */
+        .read-receipt { display:inline-flex; align-items:center; margin-left:3px; vertical-align:middle; }
+        .read-receipt .receipt-icon { width:14px; height:11px; color:rgba(10,14,39,.55); }
+        .read-receipt .receipt-icon.read { width:18px; color:#0B5FFF; }
+
+        /* Story hold */
+        #story-view-modal, #story-view-modal * { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+        #story-view-modal .story-nav-left, #story-view-modal .story-nav-right { touch-action:none; }
+        #story-view-modal .story-header, #story-view-modal .story-reply-container, #story-view-modal .story-close-btn { transition:opacity .15s; }
+        #story-view-modal.story-paused .story-header, #story-view-modal.story-paused .story-reply-container, #story-view-modal.story-paused .story-close-btn { opacity:0; pointer-events:none; }
     </style>
 </head>
 <body>
 
 <div id="app-container">
     
-    <!-- Splash Screen with Particles -->
-    <div id="splash-screen">
-        <div class="sp-aurora sp-a1"></div>
-        <div class="sp-aurora sp-a2"></div>
-        <div class="sp-aurora sp-a3"></div>
-        <div class="sp-stars"></div>
-
-        <div class="sp-orb">
-            <span class="sp-ring sp-r1"></span>
-            <span class="sp-ring sp-r2"></span>
-            <span class="sp-ring sp-r3"></span>
-            <div class="sp-orbit"><i></i><i></i><i></i></div>
-            <svg class="sp-logo" viewBox="0 0 120 120" aria-hidden="true">
-                <defs>
-                    <linearGradient id="spGrad" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0" stop-color="#00FF88"/>
-                        <stop offset="1" stop-color="#00D4FF"/>
-                    </linearGradient>
-                </defs>
-                <path class="sp-bubble" d="M60 14c25.4 0 46 17.2 46 38.4S85.4 91 60 91c-5.2 0-10.2-.7-14.8-2.1L26 100l4.6-17.4C21.4 76.2 14 65 14 52.4 14 31.2 34.6 14 60 14z"/>
-                <circle class="sp-dot sp-d1" cx="42" cy="52" r="5"/>
-                <circle class="sp-dot sp-d2" cx="60" cy="52" r="5"/>
-                <circle class="sp-dot sp-d3" cx="78" cy="52" r="5"/>
-            </svg>
-        </div>
-
-        <div class="splash-title" aria-label="ORUJOV">
-            <span style="--i:0">O</span><span style="--i:1">R</span><span style="--i:2">U</span><span style="--i:3">J</span><span style="--i:4">O</span><span style="--i:5">V</span>
-        </div>
-        <div class="sp-sub">CHAT</div>
-        <div class="splash-motto">The Life is Not Fair,<br>You Should Not Be Fair</div>
-        <div class="sp-bar"><span></span></div>
-    </div>
+    <!-- Splash -->
+    <div id="splash-screen"><div class="sp2-word">Chat<span>OG</span></div></div>
 
     <script>
         // Opened by tapping a push notification: skip the intro and go straight to the app.
@@ -3768,13 +3823,13 @@
                 splashDismissed = true;
                 var splash = document.getElementById('splash-screen');
                 if (splash) {
-                    splash.style.transition = 'opacity 0.4s ease, visibility 0.4s ease';
+                    splash.style.transition = 'opacity 0.18s ease, visibility 0.18s ease';
                     splash.style.opacity = '0';
                     splash.style.pointerEvents = 'none';
                     setTimeout(function() {
                         splash.style.display = 'none';
                         splash.classList.add('hidden');
-                    }, 400);
+                    }, 190);
                 }
                 var mainView = document.getElementById('main-view');
                 var setupView = document.getElementById('setup-view');
@@ -3788,7 +3843,7 @@
                 }
             };
             // Keep intro displayed comfortably (~3.0 seconds) as requested
-            setTimeout(window.safeDismissSplash, 3200);
+            setTimeout(window.safeDismissSplash, 1100);
         })();
     </script>
 
@@ -3801,12 +3856,7 @@
     <div id="auth-view" class="auth-screen hidden">
         <div class="auth-card">
             <div class="auth-header">
-                <div class="auth-brand-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                </div>
-                <h1 class="auth-brand-name">ORUJOV CHAT</h1>
+                <h1 class="auth-brand-name">Chat<span>OG</span></h1>
             </div>
 
             <div class="auth-form">
@@ -3911,43 +3961,51 @@
 
     <!-- Side Menu -->
     <div id="side-menu">
-        <!-- Redesigned High-Quality Profile Card -->
-        <div class="menu-profile-card">
-            <!-- Avatar with Camera Badge -->
-            <div class="menu-avatar-container">
-                <img id="menu-avatar" class="avatar menu-avatar-img">
-                <label for="menu-profile-upload" class="menu-camera-badge" title="Profil şəklini yenilə">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0A0E27" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                </label>
-                <input type="file" id="menu-profile-upload" accept="image/*" style="display: none;">
+        <div class="sm-scrim" id="side-menu-scrim"></div>
+        <div class="sm-panel">
+            <button id="btn-close-menu" class="sm-close" type="button" aria-label="Bağla">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="sm-head">
+                <div class="sm-avatar-wrap">
+                    <img id="menu-avatar" class="sm-avatar" alt="Profil">
+                    <label for="menu-profile-upload" class="sm-camera" title="Profil şəklini yenilə">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    </label>
+                    <input type="file" id="menu-profile-upload" accept="image/*" style="display: none;">
+                </div>
+                <div id="profile-display-mode" class="sm-info">
+                    <div class="sm-name-row">
+                        <h3 id="menu-name" class="sm-name">User</h3>
+                        <button id="btn-edit-name" class="sm-pencil" type="button" title="Profili redaktə et" aria-label="Profili redaktə et">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        </button>
+                    </div>
+                    <p id="menu-bio" class="sm-bio hidden"></p>
+                    <div id="profile-id-pill" class="sm-id">
+                        <span class="sm-id-tag">ID</span>
+                        <span id="menu-id" class="sm-id-code">og-xxxx</span>
+                        <button id="btn-copy-id" class="sm-copy" type="button" title="ID-ni kopyala" aria-label="Dostluq ID-sini kopyala">
+                            <svg id="copy-id-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            <!-- Profile Info Display Mode -->
-            <div id="profile-display-mode" class="profile-display-mode">
-                <div class="profile-name-row">
-                    <h3 id="menu-name" class="profile-name-text">User</h3>
-                    <button id="btn-edit-name" class="profile-pencil-btn" title="Profili redaktə et" aria-label="Profili redaktə et">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                    </button>
-                </div>
-                <p id="menu-bio" class="profile-bio-text hidden"></p>
-                <div id="profile-id-pill" class="profile-id-pill">
-                    <span class="id-tag">ID:</span>
-                    <span id="menu-id" class="id-code">og-xxxx</span>
-                    <button id="btn-copy-id" class="profile-copy-id-btn" type="button" title="ID-ni kopyala" aria-label="Dostluq ID-sini kopyala">
-                        <svg id="copy-id-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    </button>
-                </div>
-                <button id="btn-open-profile-edit" class="profile-edit-trigger-btn" type="button">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                    <span>Profili Redaktə Et</span>
+            <div class="sm-list">
+                <button id="btn-open-profile-edit" class="sm-item" type="button">
+                    <span class="sm-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                    <span class="sm-txt">Profili redaktə et</span>
+                    <svg class="sm-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
             </div>
-
+            <div class="sm-foot">
+                <button id="btn-logout" class="sm-item sm-danger" type="button">
+                    <span class="sm-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+                    <span class="sm-txt">Çıxış</span>
+                </button>
+                <div class="sm-ver">ChatOG · v1.3</div>
+            </div>
         </div>
-
-        <button id="btn-logout" class="btn-secondary" style="border-color: var(--danger); color: var(--danger); margin-top: 5px; display: flex; align-items: center; justify-content: center;"><svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Çıxış</button>
-        <button id="btn-close-menu" style="margin-top: 20px;">Bağla</button>
     </div>
 
 
@@ -4340,6 +4398,21 @@
     // ==================== NOTIFICATION SYSTEM ====================
     let sessionLoginTime = Date.now();
 
+    async function notifyContactsOfStory(kind) {
+        try {
+            if (!state.currentUser) return;
+            const snap = await get(ref(db, `contacts/${state.currentUser.uid}`));
+            const friends = Object.keys(snap.val() || {});
+            friends.forEach(fuid => {
+                sendNotificationToUser(fuid, {
+                    type: 'story',
+                    title: state.currentUser.name || 'ChatOG',
+                    body: kind === 'video' ? 'Yeni video status paylaşdı' : 'Yeni status paylaşdı'
+                });
+            });
+        } catch (e) { console.warn('story notify failed', e); }
+    }
+
     async function sendNotificationToUser(targetUid, notifPayload) {
         if (!targetUid || !state.currentUser) return;
         try {
@@ -4724,6 +4797,13 @@
 
         downloadWithAutoStart(base64Data, filename) {
             try {
+                if (window.AndroidBridge && typeof window.AndroidBridge.saveFileToDownloads === 'function') {
+                    const mime = ((base64Data || '').match(/^data:([^;,]+)/) || [])[1] || 'application/octet-stream';
+                    let ok = false;
+                    try { ok = window.AndroidBridge.saveFileToDownloads(base64Data, filename, mime); } catch (e) { ok = false; }
+                    ui.toast(ok ? '✅ Yaddaşa yükləndi (Download/ChatOG)' : '❌ Yükləmə alınmadı');
+                    return !!ok;
+                }
                 const blob = this.base64ToBlob(base64Data);
                 const blobUrl = URL.createObjectURL(blob);
                 const newWindow = window.open(blobUrl, '_blank');
@@ -4878,13 +4958,13 @@
         }
         const splash = document.getElementById('splash-screen');
         if (splash && splash.style.display !== 'none' && !splash.classList.contains('hidden')) {
-            splash.style.transition = 'opacity 0.4s ease, visibility 0.4s ease';
+            splash.style.transition = 'opacity 0.18s ease, visibility 0.18s ease';
             splash.style.opacity = '0';
             splash.style.pointerEvents = 'none';
             setTimeout(() => {
                 splash.classList.add('hidden');
                 splash.style.display = 'none';
-            }, 400);
+            }, 190);
         }
     }
 
@@ -4990,7 +5070,7 @@
             if (!state.currentUser && !state.appLoaded) {
                 ui.showView('auth');
             }
-        }, 3200);
+        }, 1000);
 
         // Listen for Firebase Auth state changes
         if (auth) {
@@ -5002,7 +5082,7 @@
 
             onAuthStateChanged(auth, (user) => {
                 // If user is logged in, dismiss splash after intro duration
-                setTimeout(() => dismissSplash(), 3000);
+                setTimeout(() => dismissSplash(), 450);
                 if (user) {
                     state.appLoaded = true;
                     syncNativeAuthSession(user);
@@ -5576,6 +5656,10 @@
     document.getElementById('btn-menu').onclick = () => {
         cancelNameEditIfOpen();
         document.getElementById('side-menu').classList.add('open');
+    };
+    document.getElementById('side-menu-scrim').onclick = () => {
+        cancelNameEditIfOpen();
+        document.getElementById('side-menu').classList.remove('open');
     };
     document.getElementById('btn-close-menu').onclick = () => {
         cancelNameEditIfOpen();
@@ -7054,20 +7138,54 @@
         }
     };
 
+    const RECEIPT_SENT = `<svg class="receipt-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>`;
+    const RECEIPT_READ = `<svg class="receipt-icon read" viewBox="0 0 20 16" fill="currentColor"><path d="M11.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L4.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/><path d="M16.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>`;
+    function receiptFor(msg, isMe) {
+        return isMe ? `<span class="read-receipt">${msg.read ? RECEIPT_READ : RECEIPT_SENT}</span>` : '';
+    }
+    function escHtml(v) {
+        return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    const FILE_KINDS = {
+        pdf:   { c: '#E5484D', l: 'PDF',  exts: ['pdf'] },
+        doc:   { c: '#2F7DE1', l: 'DOC',  exts: ['doc', 'docx', 'rtf', 'odt', 'pages'] },
+        xls:   { c: '#1FA463', l: 'XLS',  exts: ['xls', 'xlsx', 'csv', 'ods', 'numbers'] },
+        ppt:   { c: '#E8743B', l: 'PPT',  exts: ['ppt', 'pptx', 'odp', 'key'] },
+        txt:   { c: '#7A8699', l: 'TXT',  exts: ['txt', 'md', 'json', 'xml', 'log', 'html', 'js', 'css'] },
+        zip:   { c: '#E3A21A', l: 'ZIP',  exts: ['zip', 'rar', '7z', 'tar', 'gz'] },
+        audio: { c: '#9B5DE5', l: 'MP3',  exts: ['mp3', 'wav', 'ogg', 'm4a', 'flac', 'aac', 'opus'] },
+        video: { c: '#E5484D', l: 'VIDEO', exts: ['mp4', 'mkv', 'avi', 'mov', 'webm', '3gp'] },
+        image: { c: '#17A2B8', l: 'IMG',  exts: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'heic'] },
+        apk:   { c: '#3DDC84', l: 'APK',  exts: ['apk', 'xapk'] },
+        other: { c: '#5B6B86', l: 'FILE', exts: [] }
+    };
+    function fileKindOf(name) {
+        const ext = String(name || '').split('.').pop().toLowerCase();
+        for (const k in FILE_KINDS) { if (FILE_KINDS[k].exts.indexOf(ext) !== -1) return { key: k, ext: ext, c: FILE_KINDS[k].c, l: (k === 'other' || k === 'doc' || k === 'xls' || k === 'ppt' || k === 'txt' || k === 'zip') ? (ext.length <= 4 ? ext.toUpperCase() : FILE_KINDS[k].l) : FILE_KINDS[k].l }; }
+        return { key: 'other', ext: ext, c: FILE_KINDS.other.c, l: (ext && ext.length <= 4 && ext !== String(name).toLowerCase()) ? ext.toUpperCase() : 'FILE' };
+    }
+    function fileBadgeHTML(kind) {
+        return `<div class="fk-badge" style="--fk:${kind.c}"><svg class="fk-page" viewBox="0 0 40 48" aria-hidden="true"><path d="M6 2h20l12 12v30a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="currentColor"/><path d="M26 2l12 12H28a2 2 0 0 1-2-2z" fill="rgba(255,255,255,.35)"/></svg><span class="fk-label">${escHtml(kind.l)}</span></div>`;
+    }
+    const DL_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><polyline points="7 11 12 16 17 11"/><path d="M5 20h14"/></svg>`;
+    function mediaFileName(msg) {
+        const mime = ((msg.mediaData || '').match(/^data:([^;,]+)/) || [])[1] || '';
+        const map = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif', 'image/webp': 'webp', 'video/mp4': 'mp4', 'video/webm': 'webm', 'video/quicktime': 'mov', 'video/3gpp': '3gp' };
+        const ext = map[mime] || (msg.type === 'image' ? 'jpg' : 'mp4');
+        return `ChatOG_${msg.timestamp || Date.now()}.${ext}`;
+    }
+
     function createMediaMessageHTML(msg, msgKey, isMe) {
         const mediaTag = msg.type === 'image' 
             ? `<img src="${msg.mediaData}" alt="Image">`
             : `<video src="${msg.mediaData}" controls playsinline></video>`;
-        
-        const readReceipt = isMe ? (msg.read 
-                        ? `<svg class="receipt-icon read" viewBox="0 0 20 16" fill="currentColor"><path d="M11.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L4.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/><path d="M16.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>`
-                        : `<svg class="receipt-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>`) : '';
-        const receiptHTML = isMe ? `<span class="read-receipt">${readReceipt}</span>` : '';
+        const receiptHTML = receiptFor(msg, isMe);
         const reactionsHTML = msg.reactions ? createReactionsDisplay(msg.reactions).outerHTML : '';
+        const dlBtn = `<button type="button" class="media-download-btn" aria-label="Yüklə" data-file-data="${msg.mediaData}" data-file-name="${mediaFileName(msg)}">${DL_ICON}</button>`;
         
         return `
             <div class="message media-msg ${isMe ? 'me' : 'other'}" data-msg-key="${msgKey}">
-                <div class="media-content">${mediaTag}</div>
+                <div class="media-content">${mediaTag}${dlBtn}</div>
                 ${reactionsHTML}
                 <div class="message-time">${utils.formatTimestamp(msg.timestamp)} ${receiptHTML}</div>
             </div>
@@ -7075,21 +7193,20 @@
     }
 
     function createFileMessageHTML(msg, msgKey, isMe) {
-        const readReceipt = isMe ? (msg.read 
-                        ? `<svg class="receipt-icon read" viewBox="0 0 20 16" fill="currentColor"><path d="M11.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L4.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/><path d="M16.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>`
-                        : `<svg class="receipt-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>`) : '';
-        const receiptHTML = isMe ? `<span class="read-receipt">${readReceipt}</span>` : '';
+        const receiptHTML = receiptFor(msg, isMe);
         const reactionsHTML = msg.reactions ? createReactionsDisplay(msg.reactions).outerHTML : '';
+        const kind = fileKindOf(msg.fileName);
+        const sub = [msg.fileSize || '', kind.ext ? kind.ext.toUpperCase() : ''].filter(Boolean).join(' · ');
         
         return `
             <div class="message file-msg ${isMe ? 'me' : 'other'}" data-msg-key="${msgKey}">
-                <div class="file-container">
-                    <div class="file-icon">${msg.fileIcon || '📎'}</div>
+                <div class="file-container fk-card">
+                    ${fileBadgeHTML(kind)}
                     <div class="file-info">
-                        <div class="file-name">${msg.fileName || 'File'}</div>
-                        <div class="file-size">${msg.fileSize || ''}</div>
+                        <div class="file-name">${escHtml(msg.fileName || 'File')}</div>
+                        <div class="file-size">${escHtml(sub)}</div>
                     </div>
-                    <button class="file-download-btn" data-file-data="${msg.fileData}" data-file-name="${msg.fileName}"><svg class="app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+                    <button type="button" class="file-download-btn" aria-label="Yüklə" data-file-data="${msg.fileData}" data-file-name="${escHtml(msg.fileName || 'file')}">${DL_ICON}</button>
                 </div>
                 ${reactionsHTML}
                 <div class="message-time">${utils.formatTimestamp(msg.timestamp)} ${receiptHTML}</div>
@@ -7198,7 +7315,7 @@
     }
 
     function initializeFileDownloads() {
-        document.querySelectorAll('.file-download-btn, .audio-download-btn').forEach(btn => {
+        document.querySelectorAll('.file-download-btn, .audio-download-btn, .media-download-btn').forEach(btn => {
             btn.onclick = (e) => {
                 e.stopPropagation();
                 const fileData = btn.dataset.fileData;
@@ -8127,6 +8244,7 @@
                     userDp: (state.currentUser && state.currentUser.dpUrl) || ''
                 };
                 await push(ref(db, `stories/${state.currentUser.uid}`), storyData);
+                notifyContactsOfStory('image');
                 document.getElementById('story-create-modal').style.display = 'none';
                 ui.toast('Şəkil statusu paylaşıldı!');
             } catch (err) {
@@ -8169,6 +8287,7 @@
                     userDp: (state.currentUser && state.currentUser.dpUrl) || ''
                 };
                 await push(ref(db, `stories/${state.currentUser.uid}`), storyData);
+                notifyContactsOfStory('video');
                 document.getElementById('story-create-modal').style.display = 'none';
                 ui.toast('Video statusu paylaşıldı!');
             } catch (err) {
@@ -8268,6 +8387,7 @@
         }
 
         state.currentStoryIndex = index;
+        state.storyPaused = false;
         const story = state.currentStoriesArray[index];
         
         document.getElementById('story-user-name').innerText = state.currentStoryUserData.name;
@@ -8324,6 +8444,7 @@
         }
 
         state.storyProgressInterval = setInterval(() => {
+            if (state.storyPaused) return;
             progress += increment;
             progressFill.style.width = progress + '%';
             
@@ -8334,7 +8455,45 @@
         }, interval);
     }
 
+    // --- Hold to pause / release to resume ---
+    (function setupStoryHold() {
+        const modal = document.getElementById('story-view-modal');
+        const zones = [document.getElementById('story-nav-left'), document.getElementById('story-nav-right'), modal.querySelector('.story-content')];
+        let holdTimer = null;
+        const begin = () => {
+            clearTimeout(holdTimer);
+            holdTimer = setTimeout(() => {
+                state.storyHold = true;
+                state.storyPaused = true;
+                const v = document.getElementById('story-video');
+                if (v && v.style.display !== 'none') { try { v.pause(); } catch (e) {} }
+                modal.classList.add('story-paused');
+            }, 170);
+        };
+        const end = () => {
+            clearTimeout(holdTimer);
+            if (state.storyPaused) {
+                state.storyPaused = false;
+                const v = document.getElementById('story-video');
+                if (v && v.style.display !== 'none') { v.play().catch(() => {}); }
+                modal.classList.remove('story-paused');
+                setTimeout(() => { state.storyHold = false; }, 80);
+            }
+        };
+        zones.forEach(z => {
+            if (!z) return;
+            z.addEventListener('touchstart', begin, { passive: true });
+            z.addEventListener('touchend', end);
+            z.addEventListener('touchcancel', end);
+            z.addEventListener('mousedown', begin);
+            z.addEventListener('mouseup', end);
+            z.addEventListener('mouseleave', end);
+        });
+        modal.addEventListener('contextmenu', (e) => e.preventDefault());
+    })();
+
     document.getElementById('story-nav-left').onclick = () => {
+        if (state.storyHold) return;
         if (state.storyProgressInterval) {
             clearInterval(state.storyProgressInterval);
         }
@@ -8342,6 +8501,7 @@
     };
 
     document.getElementById('story-nav-right').onclick = () => {
+        if (state.storyHold) return;
         if (state.storyProgressInterval) {
             clearInterval(state.storyProgressInterval);
         }
@@ -8404,6 +8564,10 @@
     });
 
     function closeStoryView() {
+        state.storyPaused = false;
+        state.storyHold = false;
+        const _sm = document.getElementById('story-view-modal');
+        if (_sm) _sm.classList.remove('story-paused');
         if (state.storyProgressInterval) {
             clearInterval(state.storyProgressInterval);
             state.storyProgressInterval = null;

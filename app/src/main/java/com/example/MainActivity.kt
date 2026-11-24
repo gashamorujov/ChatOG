@@ -174,6 +174,47 @@ class AndroidBridge(
     private val context: Context,
     private val webViewProvider: () -> WebView?
 ) {
+    /**
+     * Saves a base64 data-URL (or raw base64) to the phone's public Downloads/ChatOG folder.
+     * Returns true on success. Works without storage permission on Android 10+.
+     */
+    @JavascriptInterface
+    fun saveFileToDownloads(dataUrl: String, fileName: String, mimeType: String): Boolean {
+        return try {
+            val comma = dataUrl.indexOf(',')
+            val base64 = if (dataUrl.startsWith("data:") && comma >= 0) dataUrl.substring(comma + 1) else dataUrl
+            val bytes = android.util.Base64.decode(base64, android.util.Base64.DEFAULT)
+            val safeName = fileName.replace(Regex("[\\\\/:*?\"<>|]"), "_").ifBlank { "file_${System.currentTimeMillis()}" }
+            val mime = mimeType.ifBlank { "application/octet-stream" }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val values = android.content.ContentValues().apply {
+                    put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, safeName)
+                    put(android.provider.MediaStore.MediaColumns.MIME_TYPE, mime)
+                    put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "Download/ChatOG")
+                    put(android.provider.MediaStore.MediaColumns.IS_PENDING, 1)
+                }
+                val resolver = context.contentResolver
+                val uri = resolver.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
+                    ?: return false
+                resolver.openOutputStream(uri)?.use { it.write(bytes) } ?: return false
+                values.clear()
+                values.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
+                resolver.update(uri, values, null, null)
+            } else {
+                val dir = java.io.File(
+                    android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
+                    "ChatOG"
+                )
+                val target = if (dir.exists() || dir.mkdirs()) dir else context.getExternalFilesDir(null) ?: return false
+                java.io.File(target, safeName).writeBytes(bytes)
+            }
+            true
+        } catch (e: Exception) {
+            Log.e("AndroidBridge", "saveFileToDownloads failed: ${e.message}")
+            false
+        }
+    }
+
     /** True when the app was opened by tapping a notification (JS skips the splash animation). */
     @JavascriptInterface
     fun isNotificationLaunch(): Boolean = NotificationStore.launchedFromNotification

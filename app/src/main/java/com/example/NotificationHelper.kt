@@ -155,7 +155,7 @@ object NotificationHelper {
             val isCall = (type == "call" || type == "incoming_call")
             val channelId = when {
                 isCall -> CHANNEL_CALLS_ID
-                type == "friend_request" || type == "request_accepted" -> CHANNEL_FRIENDS_ID
+                type == "friend_request" || type == "request_accepted" || type == "story" -> CHANNEL_FRIENDS_ID
                 else -> CHANNEL_CHAT_ID
             }
 
