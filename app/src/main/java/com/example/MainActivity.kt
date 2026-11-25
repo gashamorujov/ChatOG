@@ -477,6 +477,8 @@ fun ChatWebViewScreen(
                 )
                 setBackgroundColor(AndroidColor.parseColor("#0A0E27"))
                 webViewHolder[0] = this
+                setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
+                overScrollMode = android.view.View.OVER_SCROLL_NEVER
 
                 settings.apply {
                     javaScriptEnabled = true
